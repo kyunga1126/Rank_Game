@@ -36,6 +36,8 @@ Spring Boot|MyBatis|Html/CSS/JavaScript|MySQL|RDS|EC2|
 <br/>
 <br/>
 
+<hr/>
+
 #### 배운점
 Spring Boot와 JPA를 적용해 볼 수 있었다.<br/>
 게임 투표 시스템 및 결과를 시각화 해 볼 수 있었다.<br/>
