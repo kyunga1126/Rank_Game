@@ -21,16 +21,15 @@ Spring Boot   MyBatis   Html/CSS/JavaScript   MySQL   RDS   EC2
 
 ## 구현 기능 미리보기
 #### 1. 게임 투표 및 결과
-<img width="75%" src="https://github.com/user-attachments/assets/5e55daf5-d9d0-4e5f-8753-502af5410ed1"/> 
+<img width="75%" src="https://github.com/user-attachments/assets/2f111614-ddb7-43fe-bbd3-c4eca7ab14f6"/> 
 <br/>
 
 #### 2. 게임 라운드 투표
-
+<img width="75%" src="https://github.com/user-attachments/assets/bc505448-5df2-4ecf-94a4-ae720eed5df7"/> 
 <br/>
 
 #### 3. 사이퍼즈 API 연동
-
-
+<img width="75%" src="https://github.com/user-attachments/assets/f5ceebed-7af3-449c-b924-d8e4b023c098"/> 
 <br/>
 <br/>
 
