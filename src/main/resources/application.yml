@@ -28,7 +28,7 @@ spring:
   # DataSource Setting
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/gamelist # or 3306
+    url: jdbc:mysql://localhost:3306/gamelist # or 3306
     username: root # or user
     password: 12345
 
