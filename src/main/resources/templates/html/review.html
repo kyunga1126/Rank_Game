@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>EndGam - Gaming Magazine Template</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="EndGam Gaming Magazine Template">
+	<meta name="keywords" content="endGam,gGaming, magazine, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+	<link href="/img/favicon.ico" rel="shortcut icon"/>
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="/css/slicknav.min.css"/>
+	<link rel="stylesheet" href="/css/owl.carousel.min.css"/>
+	<link rel="stylesheet" href="/css/magnific-popup.css"/>
+	<link rel="stylesheet" href="/css/animate.css"/>
+
+	<!-- Main Stylesheets -->
+	<link rel="stylesheet" href="/css/style.css"/>
+
+	<!-- Favicon -->
+	<link href="/img/favicon.ico" rel="icon">
+
+	<!-- Google Web Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+
+	<!-- Icon Font Stylesheet -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+	<!-- Libraries Stylesheet -->
+	<link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+	<link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+	<!-- Chart.js -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<!-- Page Preloader -->
+<div id="preloder">
+	<div class="loader"></div>
+</div>
+
+<!-- Header section -->
+<header class="header-section">
+	<div class="header-warp">
+		<div class="header-social d-flex justify-content-end">
+			<p>Follow us:</p>
+			<a href="#"><i class="fa fa-pinterest"></i></a>
+			<a href="#"><i class="fa fa-facebook"></i></a>
+			<a href="#"><i class="fa fa-twitter"></i></a>
+			<a href="#"><i class="fa fa-dribbble"></i></a>
+			<a href="#"><i class="fa fa-behance"></i></a>
+		</div>
+		<div class="header-bar-warp d-flex">
+			<!-- site logo -->
+			<a href="/" class="site-logo">
+				<img src="/img/logo.png" alt="Logo">
+			</a>
+			<nav class="top-nav-area w-100">
+				<div class="user-panel">
+					<a href="/" id="login-btn">로그인</a> / <a href="/signup">회원가입</a>
+				</div>
+
+				<div class="modal-overlay" id="modal-overlay"></div>
+
+				<div class="modal" id="login-modal">
+					<h2>로그인</h2>
+					<form>
+						<label for="login-email">이메일:</label>
+						<input type="email" id="login-email" name="email" required>
+						<label for="login-password">비밀번호:</label>
+						<input type="password" id="login-password" name="password" required>
+						<button type="submit">로그인</button>
+					</form>
+					<button id="close-login-modal">닫기</button>
+				</div>
+				<!-- Menu -->
+				<ul class="main-menu primary-menu">
+					<li><a href="/">홈</a></li>
+					<li><a href="/search/lol">전적 검색</a>
+						<ul class="sub-menu">
+							<li><a href="/search/lol">리그오브레전드</a></li>
+							<li><a href="/search/pubg">배틀그라운드</a></li>
+							<li><a href="/search/cyphers">사이퍼즈</a></li>
+						</ul>
+					</li>
+					<li><a href="/review">게임 랭킹</a></li>
+					<li><a href="/board/boardlist">자유게시판</a></li>
+					<li><a href="/notice">공지사항</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</header>
+<!-- Header section end -->
+
+<!-- Page top section -->
+<section class="page-top-section set-bg" data-setbg="/img/page-top-bg/2.jpg">
+	<div class="page-info">
+		<h2>게임 랭킹</h2>
+		<div class="site-breadcrumb">
+			<a href="/">홈</a>  /
+			<span>게임 랭킹</span>
+		</div>
+	</div>
+</section>
+<!-- Page top end-->
+
+<!-- Sales Chart Start -->
+<section class="chart-bg">
+<div class="container-fluid pt-4 px-4">
+	<div class="row g-4">
+		<!-- 일간 top10 게임 -->
+		<div class="col-sm-12 col-xl-6">
+			<div class="bg-secondary text-center rounded p-4">
+				<div class="d-flex align-items-center justify-content-between mb-4">
+					<h6 class="mb-0">TOP 10 게임</h6>
+					<select id="time-period" class="form-select">
+						<option value="daily">일간</option>
+						<option value="weekly">주간</option>
+						<option value="monthly">월간</option>
+					</select>
+				</div>
+				<canvas id="gameRankChart"></canvas>
+			</div>
+		</div>
+
+		<!-- 게임별 득표 -->
+		<div class="col-sm-12 col-xl-6">
+			<div class="bg-secondary text-center rounded p-4">
+				<div class="d-flex align-items-center justify-content-between mb-4">
+					<h6 class="mb-0">게임별 득표</h6>
+					<select id="game-select" class="form-select">
+						<option disabled selected>게임을 선택해주세요!</option>
+						<option th:each="game : ${games}" th:value="${game.id}" th:text="${game.gameName}"></option>
+					</select>
+				</div>
+				<canvas id="vote-trend-chart"></canvas>
+			</div>
+		</div>
+
+		<!-- 전날 대비 순위 변동 -->
+		<div class="col-sm-12 col-xl-12">
+			<div class="bg-secondary text-center rounded p-4">
+				<h6 class="mb-0">전날 대비 TOP 10 순위 변동</h6>
+				<table class="table table-striped table-dark">
+					<thead>
+					<tr>
+						<th>순위</th>
+						<th>게임명</th>
+						<th>변동</th>
+					</tr>
+					</thead>
+					<tbody id="rank-change-table">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+<!-- Sales Chart End -->
+
+<!-- Footer section -->
+<footer class="footer-section">
+	<div class="container">
+		<div class="footer-left-pic">
+			<img src="/img/footer-left-pic.png" alt="">
+		</div>
+		<div class="footer-right-pic">
+			<img src="/img/footer-right-pic.png" alt="">
+		</div>
+		<a href="/" class="footer-logo">
+			<img src="/img/logo.png" alt="">
+		</a>
+		<ul class="main-menu footer-menu">
+			<li><a href="/">홈</a></li>
+			<li><a href="/search/lol">전적 검색</a></li>
+			<li><a href="/review">게임 랭킹</a></li>
+			<li><a href="/board/boardList">자유게시판</a></li>
+			<li><a href="/notice">공지사항</a></li>
+		</ul>
+		<div class="footer-social d-flex justify-content-center">
+			<a href="#"><i class="fa fa-pinterest"></i></a>
+			<a href="#"><i class="fa fa-facebook"></i></a>
+			<a href="#"><i class="fa fa-twitter"></i></a>
+			<a href="#"><i class="fa fa-dribbble"></i></a>
+			<a href="#"><i class="fa fa-behance"></i></a>
+		</div>
+		<div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
+	</div>
+</footer>
+<!-- Footer section end -->
+
+<!--====== Javascripts & Jquery ======-->
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.slicknav.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.sticky-sidebar.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/chart/chart.min.js"></script>
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/waypoints/waypoints.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="/lib/tempusdominus/js/moment.min.js"></script>
+<script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<!-- Custom Script for Chart.js -->
+<script th:inline="javascript">
+	var top10Games = /*[[${top10GamesJson}]]*/ '[]';
+</script>
+<script src="/js/chart.js"></script>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>EndGam - Gaming Magazine Template</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="EndGam Gaming Magazine Template">
+	<meta name="keywords" content="endGam,gGaming, magazine, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+	<link href="/img/favicon.ico" rel="shortcut icon"/>
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="/css/slicknav.min.css"/>
+	<link rel="stylesheet" href="/css/owl.carousel.min.css"/>
+	<link rel="stylesheet" href="/css/magnific-popup.css"/>
+	<link rel="stylesheet" href="/css/animate.css"/>
+
+	<!-- Main Stylesheets -->
+	<link rel="stylesheet" href="/css/style.css"/>
+
+
+	<!--[if lt IE 9]>
+	<script src="/https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="/https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+	<div class="loader"></div>
+</div>
+
+<!-- Header section -->
+<header class="header-section">
+	<div class="header-warp">
+		<div class="header-social d-flex justify-content-end">
+			<p>Follow us:</p>
+			<a href="#"><i class="fa fa-pinterest"></i></a>
+			<a href="#"><i class="fa fa-facebook"></i></a>
+			<a href="#"><i class="fa fa-twitter"></i></a>
+			<a href="#"><i class="fa fa-dribbble"></i></a>
+			<a href="#"><i class="fa fa-behance"></i></a>
+		</div>
+		<div class="header-bar-warp d-flex">
+			<!-- site logo -->
+			<a href="/" class="site-logo">
+				<img src="/img/logo.png" alt="Logo">
+			</a>
+			<nav class="top-nav-area w-100">
+				<div class="user-panel">
+					<div class="auth" th:if="${isLogin}">
+						<a href="/profile/mainMyPage">마이페이지</a> /
+						<a href="/member/logout">로그아웃</a>
+					</div>
+					<div class="auth" th:if="${!isLogin}">
+						<a href="#" id="login-btn">로그인</a> / <a href="/member/signup">회원가입</a>
+					</div>
+				</div>
+
+				<div class="modal-overlay" id="modal-overlay" th:if="${!isLogin}"></div>
+
+				<div class="modal" id="login-modal" th:if="${!isLogin}">
+					<h2>로그인</h2>
+					<form action="/member/login" method="post">
+						<label for="login-email">이메일:</label>
+						<input type="email" id="login-email" name="memberEmail" required>
+						<label for="login-password">비밀번호:</label>
+						<input type="password" id="login-password" name="memberPassword" required>
+						<button type="submit">로그인</button>
+					</form>
+					<button id="close-login-modal">닫기</button>
+					<button id="forgot-password-btn">비밀번호 찾기</button>
+				</div>
+
+				<div class="modal" id="forgot-password-modal" th:if="${!isLogin}">
+					<div class="modal-content" style="max-height: 70vh; overflow-y: auto;">
+						<h3>비밀번호 찾기</h3>
+						<form action="/member/resetPassword" method="POST" id="formId">
+							<div class="mb-3">
+								<label for="memberEmail">이메일</label>
+								<div class="d-flex justify-content-between">
+									<input type="email" name="memberEmail" id="memberEmail" placeholder="가입하신 이메일 주소" style="flex-grow: 1;">
+									<button type="button" id="emailCheckBtn" class="btn btn-outline-dark mb-3 btn-sm" style="margin-left: 10px;">전송</button>
+								</div>
+								<div class="form-text" id="emailCheckWarn"></div>
+							</div>
+							<div class="mb-3">
+								<label for="injeung">인증번호 입력</label>
+								<div class="d-flex justify-content-between">
+									<input type="hidden" id="injeungbunho">
+									<input type="text" id="injeung" style="flex-grow: 1;">
+								</div>
+								<div class="form-text" id="injeungCheckWarn"></div>
+							</div>
+							<button type="button" class="btn btn-dark mb-3" id="findPwdBtn" style="width: 100%;">확인</button>
+							<input type="hidden" id="randomPwd">
+						</form>
+						<button id="close-forgot-password-modal">닫기</button>
+					</div>
+				</div>
+
+				<!-- Menu -->
+				<ul class="main-menu primary-menu">
+					<li><a href="/">홈</a></li>
+					<li><a href="/search/lol">전적 검색</a>
+						<ul class="sub-menu">
+							<li><a href="/search/lol">리그오브레전드</a></li>
+							<li><a href="/search/pubg">배틀그라운드</a></li>
+							<li><a href="/search/cyphers">사이퍼즈</a></li>
+						</ul>
+					</li>
+					<li><a href="/review">투표 / 게임 랭킹</a>
+						<ul class="sub-menu">
+							<li><a href="/review">게임 랭킹</a></li>
+							<li><a href="/vote">투표</a></li>
+						</ul>
+					</li>
+					<li><a href="/board">자유게시판</a></li>
+					<li><a href="/notice">공지사항</a></li>
+					<!-- 관리자 페이지 메뉴 -->
+					<li th:if="${isAdmin}">
+						<a href="#">관리자 페이지</a>
+						<ul class="sub-menu">
+							<li><a href="/admin/member">회원관리</a></li>
+							<li><a href="/admin/notices">공지사항 관리</a></li>
+							<li><a href="/admin/posts">게시글 관리</a></li>
+						</ul>
+					</li>
+					<li th:if="${isManager}">
+						<a href="#">관리자 페이지</a>
+						<ul class="sub-menu">
+							<li><a href="/manager/members">회원관리</a></li>
+							<li><a href="/admin/notices">공지사항 관리</a></li>
+							<li><a href="/admin/posts">게시글 관리</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</header>
+<!-- Header section end -->
+
+
+	<!-- Page top section -->
+<section class="page-top-section" style="background-image: url('/img/page-top-bg/4.jpg');">
+		<div class="page-info">
+			<h2>게시글</h2>
+			<div class="site-breadcrumb">
+				<a href="/">홈</a>  /
+				<span>상세보기</span>
+			</div>
+		</div>
+	</section>
+	<!-- Page top end-->
+
+<!-- boardView-Section -->
+<section class="boardView-section">
+	<div class="boardView-container">
+		<div class="boardView-header1">
+			<h1 class="boardView-title" th:text="${board.title}">제목입니다.</h1>
+		</div>
+		<div class="boardView-header2">
+			<div class="boardView-info1">
+				👤<span class="boardView-nickname" th:text="${board.nickname}">닉네임</span>&nbsp;
+				🕘<span class="boardView-date" th:text="${#temporals.format(board.createdAt, 'MM.dd')}"></span>&nbsp;
+				👀<span class="boardView-viewCount" th:text="${board.viewCount}">0</span>&nbsp;
+				❤<span th:text="${board.likeCount}" class="boardView-likeCount"> 0</span>
+			</div>
+			<div class="boardView-menu-wrapper">
+				<input type="checkbox" id="menu-toggle">
+				<label for="menu-toggle" class="boardView-menu-btn">⋮</label>
+				<div class="boardView-menu-content">
+					<ul>
+						<li><a th:href="@{/board/modify/{id}(id=${board.id}, searchKeyword=${searchKeyword}, page=${page})}">✏️수정</a></li>
+						<li><a href="#" class="delete-btn" th:data-id="${board.id}" th:data-search-keyword="${searchKeyword}" th:data-page="${page}">🗑️삭제</a></li>
+<!--						<li><a href="#">🚨신고</a></li>-->
+<!--						<li><a href="#">🚫차단</a></li>-->
+					</ul>
+				</div>
+			</div>
+		</div>
+		<hr class="boardView-separator">
+
+		<div class="boardView-content-container">
+			<p class="boardView-content" th:text="${board.content}" style="white-space: pre-wrap;">내용이 들어갈 부분입니다.</p>
+			<div th:if="${imagePath != null}">
+				<img th:src="${imagePath}" alt="Uploaded Image" />
+			</div>
+
+		</div>
+
+		<div class="boardView-footer">
+			<button id="likeBtn" class="likeButton" th:data-id="${board.id}">
+				<span>좋아요</span>
+				<span>👍</span>
+			</button>
+			<button id="dislikeBtn" class="likeButton" th:data-id="${board.id}">
+				<span>싫어요</span>
+				<span>👎</span>
+			</button>
+		</div>
+
+		<hr class="boardView-separator1">
+
+		<div class="boardView-post-navigation">
+			<!-- 이전 글 버튼 -->
+			<form th:action="@{/board/view/{id}(id=${previousPost.id})}" method="get" class="navigation-form" th:if="${previousPost != null}">
+				<button id="prevButton" class="prevButton"> << 이전 글</button>
+				<input type="hidden" name="searchKeyword" th:value="${searchKeyword}">
+				<input type="hidden" name="page" th:value="${page}">
+			</form>
+
+			<!-- 목록으로 돌아가기 버튼 -->
+			<form th:action="@{/board}" method="get" class="navigation-form">
+				<button type="submit" class="prevButton">목록</button>
+				<input type="hidden" name="searchKeyword" th:value="${searchKeyword}">
+				<input type="hidden" name="page" th:value="${page}">
+			</form>
+
+			<!-- 다음 글 버튼 -->
+			<form th:action="@{/board/view/{id}(id=${nextPost.id})}" method="get" class="navigation-form" th:if="${nextPost != null}">
+				<button id="nextButton" class="prevButton">다음 글 >> </button>
+				<input type="hidden" name="searchKeyword" th:value="${searchKeyword}">
+				<input type="hidden" name="page" th:value="${page}">
+			</form>
+		</div>
+
+
+		<div class="comment-title">댓글</div>
+		<div class="comment-section">
+			<ul id="commentList" class="comment-list">
+				<!-- 댓글 목록을 동적으로 추가할 부분 -->
+			</ul>
+			<div id="commentStatus" class="comment-status"></div>
+		</div>
+
+		<div class="comment-form-container">
+			<form id="commentForm" class="comment-form">
+				<input type="hidden" id="boardId" name="boardId" th:value="${board.id}" readonly>
+				<input type="hidden" id="memberNum" name="memberNum" th:value="${memberNum}" readonly>
+				<input name="content" id="content" class="comment-textarea" placeholder="댓글을 입력하세요" required>
+				<button type="submit" class="comment-submit-button">댓글 작성</button>
+			</form>
+		</div>
+	</div>
+</section>
+
+
+<!-- Footer section -->
+<footer class="footer-section">
+	<div class="container">
+		<div class="footer-left-pic">
+			<img src="/img/footer-left-pic.png" alt="">
+		</div>
+		<div class="footer-right-pic">
+			<img src="/img/footer-right-pic.png" alt="">
+		</div>
+		<a href="/" class="footer-logo">
+			<img src="/img/logo.png" alt="">
+		</a>
+		<ul class="main-menu footer-menu">
+			<li><a href="/">홈</a></li>
+			<li><a href="/search/lol">전적 검색</a></li>
+			<li><a href="/rank/review">게임 랭킹</a></li>
+			<li><a href="/boardList">자유게시판</a></li>
+			<li><a href="/notice">공지사항</a></li>
+		</ul>
+		<div class="footer-social d-flex justify-content-center">
+			<a href="#"><i class="fa fa-pinterest"></i></a>
+			<a href="#"><i class="fa fa-facebook"></i></a>
+			<a href="#"><i class="fa fa-twitter"></i></a>
+			<a href="#"><i class="fa fa-dribbble"></i></a>
+			<a href="#"><i class="fa fa-behance"></i></a>
+		</div>
+		<div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
+	</div>
+</footer>
+<!-- Footer section end -->
+
+
+	<!--====== Javascripts & Jquery ======-->
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.slicknav.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.sticky-sidebar.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script>
+	$(document).ready(function() {
+		const memberNum = $("#memberNum").val();
+		const boardId = $("#boardId").val();
+
+		// 댓글 리스트 초기화
+		function loadComments() {
+			$.ajax({
+				type: "GET",
+				url: "/comments/board/" + boardId,
+				success: function(response) {
+					$("#commentList").empty();
+					response.forEach(function(comment) {
+						// 날짜 포맷팅
+						const createdAt = new Date(comment.createdAt);
+						const formattedDate = createdAt.toLocaleDateString('ko-KR', {
+							day: '2-digit',
+							month: '2-digit'
+						}).replace(/\//g, '.'); // 슬래시를 점으로 변환
+
+						let commentHtml =
+								"<li data-id='" + comment.id + "'>" +
+								"<div class='comment-header'>" +
+								"<div class='comment-nickname'><strong>👤 " + comment.nickname + "</strong>&nbsp; <em>🕘 " + formattedDate + "</em></div>";
+
+						if (comment.memberNum == memberNum) {
+							commentHtml +=
+									"<button class='comment-menu-btn'>⋮</button>" +
+									"<div class='comment-menu-options' style='display: none;'>" +
+									"<button class='comment-edit-btn'>✏수정</button>" +
+									"<button class='comment-delete-btn'>🗑삭제</button>" +
+									"</div>";
+						}
+
+						commentHtml += "</div>" +
+								"<div class='comment-content'>" + comment.content + "</div>" +
+								"<div class='comment-edit-form' style='display: none;'>" +
+								"<textarea class='comment-edit-text'>" + comment.content + "</textarea>" +
+								"<button class='comment-save-btn'>저장</button>" +
+								"<button class='comment-cancel-btn'>취소</button>" +
+								"</div>" +
+								"<hr class='comment-boardView-separator'></li>";
+
+						$("#commentList").append(commentHtml);
+					});
+
+					// 메뉴 버튼 클릭 이벤트
+					$('.comment-menu-btn').click(function() {
+						const comment = $(this).closest('li');
+						comment.find('.comment-menu-options').toggle();
+					});
+
+					// 수정 버튼 클릭 이벤트
+					$('.comment-edit-btn').click(function() {
+						const comment = $(this).closest('li');
+						comment.find('.comment-edit-form').show();
+						comment.find('.comment-content').hide();
+						comment.find('.comment-menu-options').hide();
+					});
+
+					// 취소 버튼 클릭 이벤트
+					$('.comment-cancel-btn').click(function() {
+						const comment = $(this).closest('li');
+						comment.find('.comment-edit-form').hide();
+						comment.find('.comment-content').show();
+					});
+
+					// 저장 버튼 클릭 이벤트
+					$('.comment-save-btn').click(function() {
+						const comment = $(this).closest('li');
+						const newText = comment.find('.comment-edit-text').val();
+						const commentId = comment.data('id');
+
+						$.ajax({
+							type: "PUT",
+							url: "/comments/" + commentId,
+							contentType: "application/json",
+							data: JSON.stringify({ content: newText }),
+							success: function(response) {
+								comment.find('.comment-content').text(newText);
+								comment.find('.comment-edit-form').hide();
+								comment.find('.comment-content').show();
+							},
+							error: function(xhr, status, error) {
+								if (xhr.status === 401) {
+									alert("로그인이 필요합니다.");
+									window.location.href = '/login'; // 예시
+								} else {
+									console.error("댓글 수정 중 오류가 발생했습니다.");
+								}
+							}
+						});
+					});
+
+					// 삭제 버튼 클릭 이벤트
+					$('.comment-delete-btn').click(function() {
+						const commentId = $(this).closest('li').data('id');
+
+						if (confirm("정말로 이 댓글을 삭제하시겠습니까?")) {
+							$.ajax({
+								type: "DELETE",
+								url: "/comments/" + commentId,
+								success: function(response) {
+									alert(response.message);
+									loadComments(); // 댓글 목록 새로고침
+								},
+								error: function(xhr, status, error) {
+									if (xhr.status === 401) {
+										alert("로그인이 필요합니다.");
+										window.location.href = '/login'; // 예시
+									} else {
+										console.error("댓글 삭제 중 오류가 발생했습니다.");
+									}
+								}
+							});
+						}
+					});
+				},
+				error: function(xhr, status, error) {
+					console.error("댓글 목록을 불러오는 중 오류가 발생했습니다.");
+				}
+			});
+		}
+
+		// 페이지 로드 시 댓글 목록 로드
+		loadComments();
+
+		// 댓글 처리 함수
+		$("#commentForm").submit(function(event) {
+			if (!memberNum) {
+				alert("로그인 후 댓글을 작성할 수 있습니다.");
+				event.preventDefault();
+				return false;
+			}
+
+			event.preventDefault();
+			const formData = {
+				boardId: $("#boardId").val(),
+				memberNum: memberNum,
+				content: $("#content").val()
+			};
+
+			$.ajax({
+				type: "POST",
+				url: "/comments",
+				contentType: "application/json",
+				data: JSON.stringify(formData),
+				success: function(response) {
+					$("#commentStatus").html("<p>" + response.message + "</p>");
+					$("#content").val("");
+					loadComments();
+				},
+				error: function(xhr, status, error) {
+					$("#commentStatus").html("<p>오류: " + xhr.responseText + "</p>");
+				}
+			});
+		})
+
+		// 삭제 버튼 클릭 이벤트
+		$(".delete-btn").click(function(event) {
+			event.preventDefault(); // 기본 링크 동작 방지
+
+			const button = $(this);
+			const boardId = button.data("id");
+			const searchKeyword = button.data("search-keyword");
+			const page = button.data("page");
+
+			// 확인 대화상자 표시
+			if (confirm("정말 이 글을 삭제하시겠습니까?")) {
+				// 사용자가 확인을 클릭하면 삭제 요청을 보냄
+				const deleteUrl = `/board/delete/${boardId}?searchKeyword=${searchKeyword}&page=${page}`;
+				window.location.href = deleteUrl;
+			}
+		});
+
+		// 좋아요 싫어요 버튼
+		$('#likeBtn').click(function() {
+			var boardId = $(this).data('id');  // th:data-id에서 가져온 board.id 값
+			$.ajax({
+				type: 'POST',
+				url: '/board/like/' + boardId,
+				success: function(response) {
+					alert(response);  // 성공 시 서버의 응답 메시지를 알림창으로 표시
+					// 좋아요 성공 후 페이지의 UI를 업데이트하는 로직 추가 가능
+				},
+				error: function(xhr) {
+					alert(xhr.responseText);  // 오류 시 서버의 응답 메시지를 알림창으로 표시
+				}
+			});
+		});
+
+		$('#dislikeBtn').click(function() {
+			var boardId = $(this).data('id');  // th:data-id에서 가져온 board.id 값
+			$.ajax({
+				type: 'POST',
+				url: '/board/dislike/' + boardId,
+				success: function(response) {
+					alert(response);  // 성공 시 서버의 응답 메시지를 알림창으로 표시
+					// 싫어요 성공 후 페이지의 UI를 업데이트하는 로직 추가 가능
+				},
+				error: function(xhr) {
+					alert(xhr.responseText);  // 오류 시 서버의 응답 메시지를 알림창으로 표시
+				}
+			});
+		});
+	});
+</script>
+	</body>
+</html>

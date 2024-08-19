@@ -1,0 +1,79 @@
+server:
+  port: 8080
+
+file:
+  upload-dir: ./uploads/
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: howl1265@gmail.com
+    password: rbhp fjpn fwmt nciy
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        transport:
+          protocol: smtp
+
+  main:
+    allow-bean-definition-overriding: true
+
+  mvc:
+    static-path-pattern: /uploads/**
+
+  # DataSource Setting
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/gamelist # or 3306
+    username: root # or user
+    password: 12345
+
+  # Thymeleaf Cache Setting
+  thymeleaf:
+    cache: false
+    suffix: .html
+    prefix: classpath:/templates/
+
+
+  # JPA Setting
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  jwt:
+    access:
+      claim-key: logined
+      expires-at: 7200
+      token-type: Bearer
+    refresh:
+      claim-key: refresh
+      expires-at: 2592000
+      token-type: Basic
+    authorization-header: Authorization
+  password:
+    encode:
+      algorithm: PBKDF2WithHmacSHA1
+      iterations: ${AUTH_ITERATIONS}
+      keyLength: ${KEY_LENGTH}
+
+# Mybatis 설정
+mybatis:
+  type-aliases-package: rank.game.entity  #
+  configuration:
+    map-underscore-to-camel-case: true
+  logging:
+    level:
+      project.board.repository.mybatis: trace
+
+
+pubg:
+  api:
+    key: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjZDFhOWE4MC0xZmNlLTAxM2QtZGIzZS0yYWNhNmM1NWIyYzAiLCJpc3MiOiJnYW1lbG9ja2VyIiwiaWF0IjoxNzIwNDk0NjY0LCJwdWIiOiJibHVlaG9sZSIsInRpdGxlIjoicHViZyIsImFwcCI6ImdhbWVyYW5rIn0.TwVaNy84Xcmdobi-WZ8OTzptnW2piSW6xak55_I--GM
+
+

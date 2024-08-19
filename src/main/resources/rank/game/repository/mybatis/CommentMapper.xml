@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rank.game.repository.mybatis.CommentMapper">
+
+    <resultMap id="CommentEntityMap" type="rank.game.entity.CommentEntity">
+        <id property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="createdAt" column="created_at"/>
+        <association property="board" javaType="rank.game.entity.BoardEntity">
+            <id property="id" column="board_id"/>
+        </association>
+        <association property="member" javaType="rank.game.entity.MemberEntity">
+            <id property="num" column="member_id"/>
+            <result property="nickname" column="nickname"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertComment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO comment (content, created_at, board_id, member_id)
+        VALUES (#{content}, #{createdAt}, #{board.id}, #{member.num}) <!-- Change id to num -->
+    </insert>
+
+    <select id="selectCommentsByBoardId" resultMap="CommentEntityMap">
+        SELECT c.id, c.content, c.created_at, c.board_id, c.member_id, m.nickname
+        FROM comment c
+                 JOIN membership m ON c.member_id = m.num
+        WHERE c.board_id = #{boardId}
+    </select>
+
+</mapper>

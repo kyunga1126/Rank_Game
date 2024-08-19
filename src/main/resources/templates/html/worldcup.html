@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Game World Cup</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Game World Cup and Results">
+    <meta name="keywords" content="game, world cup, tournament, results, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/slicknav.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<header class="header-section">
+    <div class="header-warp">
+        <div class="header-social d-flex justify-content-end">
+            <p>Follow us:</p>
+            <a href="#"><i class="fa fa-pinterest"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-dribbble"></i></a>
+            <a href="#"><i class="fa fa-behance"></i></a>
+        </div>
+        <div class="header-bar-warp d-flex">
+            <a href="/" class="site-logo">
+                <img th:src="@{/img/logo.png}" alt="Logo">
+            </a>
+            <nav class="top-nav-area w-100">
+                <div class="user-panel">
+                    <a href="/" id="login-btn">로그인</a> / <a href="/signup">회원가입</a>
+                </div>
+                <ul class="main-menu primary-menu">
+                    <li><a href="/">홈</a></li>
+                    <li><a href="/search/lol">전적 검색</a>
+                        <ul class="sub-menu">
+                            <li><a href="/search/lol">리그오브레전드</a></li>
+                            <li><a href="/search/pubg">배틀그라운드</a></li>
+                            <li><a href="/search/cyphers">사이퍼즈</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/review">게임 랭킹</a></li>
+                    <li><a href="/board/boardlist">자유게시판</a></li>
+                    <li><a href="/notice">공지사항</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- 페이지 상단 섹션 -->
+<section class="page-top-section set-bg" th:data-setbg="@{/img/page-top-bg/2.jpg}">
+    <div class="page-info">
+        <h2>게임 월드컵</h2>
+        <div class="site-breadcrumb">
+            <a href="/">홈</a> /
+            <span id="page-title">게임 월드컵</span>
+        </div>
+    </div>
+</section>
+
+<!-- 게임 월드컵 및 결과 표시 섹션 -->
+<section class="chart-bg">
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-12">
+                <div class="bg-secondary text-center rounded p-4">
+                    <h6 id="section-title" class="mb-0">게임 월드컵</h6>
+                    <div id="round-container">
+                        <label for="round-selection">라운드 선택: </label>
+                        <select id="round-selection" class="form-select w-auto d-inline-block">
+                            <option value="32강">32강</option>
+                            <option value="16강">16강</option>
+                            <option value="8강">8강</option>
+                            <option value="4강">4강</option>
+                            <option value="결승">결승</option>
+                        </select>
+                        <button id="initialize-round" class="site-btn">라운드 시작</button>
+                        <button id="view-results" class="site-btn">결과 보기</button>
+                    </div>
+
+                    <!-- 게임 라운드 섹션 -->
+                    <div id="game-rounds" style="display:none;">
+                        <div class="row" id="round-games"></div>
+                        <button id="next-round" class="site-btn mt-3" style="display:none;">다음 라운드로 이동</button>
+                    </div>
+
+                    <!-- 게임 결과 섹션 -->
+                    <div id="game-results" style="display:none;">
+                        <div class="row" id="round-results"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer-section">
+    <div class="container">
+        <div class="footer-left-pic">
+            <img th:src="@{/img/footer-left-pic.png}" alt="">
+        </div>
+        <div class="footer-right-pic">
+            <img th:src="@{/img/footer-right-pic.png}" alt="">
+        </div>
+        <a href="/" class="footer-logo">
+            <img th:src="@{/img/logo.png}" alt="">
+        </a>
+        <ul class="main-menu footer-menu">
+            <li><a href="/">홈</a></li>
+            <li><a href="/search/lol">전적 검색</a></li>
+            <li><a href="/review">게임 랭킹</a></li>
+            <li><a href="/board/boardList">자유게시판</a></li>
+            <li><a href="/notice">공지사항</a></li>
+        </ul>
+        <div class="footer-social d-flex justify-content-center">
+            <a href="#"><i class="fa fa-pinterest"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-dribbble"></i></a>
+            <a href="#"><i class="fa fa-behance"></i></a>
+        </div>
+        <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
+    </div>
+</footer>
+
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.slicknav.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.sticky-sidebar.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/worldcup.js"></script>
+</body>
+</html>
